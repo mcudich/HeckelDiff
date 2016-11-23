@@ -19,6 +19,29 @@ These operations are calculated in **linear** time, using the algorithm describe
 
 Knowing this set of operations is especially handy for efficiently updating **UITableViews** and **UICollectionViews**.
 
+## Example
+
+Consider a simple example that compares lists of integers:
+```swift
+let o = [1, 2, 3, 3, 4]
+let n = [2, 3, 1, 3, 4]
+let result = diff(o, n)
+// [.move(1, 0), .move(2, 1), .move(0, 2)]
+
+let o = [0, 1, 2, 3, 4, 5, 6, 7, 8]
+let n = [0, 2, 3, 4, 7, 6, 9, 5, 10]
+let result = diff(o, n)
+// [.delete(1), .delete(8), .move(7, 4), .insert(6), .move(5, 7), .insert(8)]
+```
+
+`orderedDiff` is also available, which provides a set of operations that are friendly for batched updates in UIKit contexts (note how `move` is replaced by pairs of `insert` and `delete` operations):
+```swift
+let o = [1, 2, 3, 3, 4]
+let n = [2, 3, 1, 3, 4]
+let result = orderedDiff(o, n)
+// [.delete(2), .delete(1), .delete(0), .insert(0), .insert(1), .insert(2)]
+```
+
 ## Installation
 
 #### Carthage
