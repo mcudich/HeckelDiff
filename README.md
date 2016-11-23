@@ -1,8 +1,8 @@
 # HeckelDiff
 [![Swift](https://img.shields.io/badge/swift-3-orange.svg?style=flat)](#)
 [![Carthage compatible](https://img.shields.io/badge/Carthage-compatible-4BC51D.svg?style=flat)](https://github.com/Carthage/Carthage)
-[![CocoaPods Compatible](https://img.shields.io/cocoapods/v/TemplateKit.svg)](https://img.shields.io/cocoapods/v/TemplateKit)
-[![Platform](https://img.shields.io/cocoapods/p/TemplateKit.svg?style=flat)](http://cocoadocs.org/docsets/Alamofire)
+[![CocoaPods Compatible](https://img.shields.io/cocoapods/v/HeckelDiff.svg)](https://img.shields.io/cocoapods/v/HeckelDiff)
+[![Platform](https://img.shields.io/cocoapods/p/HeckelDiff.svg?style=flat)](http://cocoadocs.org/docsets/HeckelDiff)
 [![License](https://img.shields.io/badge/license-MIT-blue.svg?style=flat)](https://opensource.org/licenses/MIT)
 
 Pure Swift implementation of Paul Heckel's *A Technique for Isolating Differences Between Files*
