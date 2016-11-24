@@ -11,6 +11,9 @@
 		D829E6241DE5039500560BD4 /* HeckelDiff.h in Headers */ = {isa = PBXBuildFile; fileRef = D829E6161DE5039500560BD4 /* HeckelDiff.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		D829E62E1DE5047600560BD4 /* Diff.swift in Sources */ = {isa = PBXBuildFile; fileRef = D829E62D1DE5047600560BD4 /* Diff.swift */; };
 		D829E6301DE504A400560BD4 /* DiffTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D829E62F1DE504A400560BD4 /* DiffTests.swift */; };
+		D869F5C31DE61F4400CDAFAF /* UICollectionView+Diff.swift in Sources */ = {isa = PBXBuildFile; fileRef = D869F5C21DE61F4400CDAFAF /* UICollectionView+Diff.swift */; };
+		D869F5C51DE61FDC00CDAFAF /* ListUpdate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D869F5C41DE61FDC00CDAFAF /* ListUpdate.swift */; };
+		D8C71BDD1DE61A2200EB6B20 /* UITableView+Diff.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8C71BDC1DE61A2200EB6B20 /* UITableView+Diff.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -31,6 +34,9 @@
 		D829E6231DE5039500560BD4 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		D829E62D1DE5047600560BD4 /* Diff.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Diff.swift; sourceTree = "<group>"; };
 		D829E62F1DE504A400560BD4 /* DiffTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DiffTests.swift; sourceTree = "<group>"; };
+		D869F5C21DE61F4400CDAFAF /* UICollectionView+Diff.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UICollectionView+Diff.swift"; sourceTree = "<group>"; };
+		D869F5C41DE61FDC00CDAFAF /* ListUpdate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ListUpdate.swift; sourceTree = "<group>"; };
+		D8C71BDC1DE61A2200EB6B20 /* UITableView+Diff.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UITableView+Diff.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -76,6 +82,9 @@
 				D829E6161DE5039500560BD4 /* HeckelDiff.h */,
 				D829E6171DE5039500560BD4 /* Info.plist */,
 				D829E62D1DE5047600560BD4 /* Diff.swift */,
+				D8C71BDC1DE61A2200EB6B20 /* UITableView+Diff.swift */,
+				D869F5C21DE61F4400CDAFAF /* UICollectionView+Diff.swift */,
+				D869F5C41DE61FDC00CDAFAF /* ListUpdate.swift */,
 			);
 			path = Source;
 			sourceTree = "<group>";
@@ -203,6 +212,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D8C71BDD1DE61A2200EB6B20 /* UITableView+Diff.swift in Sources */,
+				D869F5C31DE61F4400CDAFAF /* UICollectionView+Diff.swift in Sources */,
+				D869F5C51DE61FDC00CDAFAF /* ListUpdate.swift in Sources */,
 				D829E62E1DE5047600560BD4 /* Diff.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
