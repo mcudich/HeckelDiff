@@ -42,6 +42,27 @@ let result = orderedDiff(o, n)
 // [.delete(2), .delete(1), .delete(0), .insert(0), .insert(1), .insert(2)]
 ```
 
+## UITableView/UICollectionView Support
+
+HeckelDiff has built-in support for generating efficient batched updates for `UITableView` and `UICollectionView`. Methods are made available on both that allow informing the corresponding table or collection view that their data model has changed.
+
+For example:
+```swift
+tableView.applyDiff(previousItems, newItems, withAnimation: .fade)
+```
+or
+```swift
+collectionView.applyDiff(previousItems, newItems)
+```
+
+## Update Support
+
+Elements in collections passed into `diff` must conform to `Hashable`. HeckelDiff uses elements' `hashValues` to determine whether they should be **inserted**, **deleted** or **moved**. In some cases, elements are instead marked for **update**. This is because even though the `hashValues` of two elements might be equivalent, the elements may not be **equal**. You can take advantage of this by implementing the `Hashable` protocol in such a way that your elements get updated when appropriate.
+
+For example, you may have two records that refer to the same person (perhaps you use a record ID as a hash value). You may want to support a case where a person's phone number may change, but the record itself remains in the same position in the array. Your `Equatable` implementation may take the phone number value into account, whereas your `hashValue` may only reflect the underlying record ID value.
+
+In the context of a `UITableView` or `UICollectionView`, you would most efficiently handle this by reloading the given row that needs updating (rather than deleting it and re-inserting it). Use the supplied `applyDiff` functions to have HeckelDiff perform this for you.
+
 ## Installation
 
 #### Carthage
