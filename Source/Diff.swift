@@ -8,6 +8,13 @@
 
 import Foundation
 
+/// Used to represent the operation to perform on the source array. Indices indicate the position at
+/// which to perform the given operation.
+///
+/// - insert: Insert a new value at the given index.
+/// - delete: Delete a value at the given index.
+/// - move:   Move a value from the given origin index, to the given destination index.
+/// - update: Update the value at the given index.
 public enum Operation: Equatable {
   case insert(Int)
   case delete(Int)
@@ -15,6 +22,12 @@ public enum Operation: Equatable {
   case update(Int)
 }
 
+/// Returns whether the two `Operation` values are equal.
+///
+/// - parameter lhs: The left-hand side value to compare.
+/// - parameter rhs: The right-hand side value to compare.
+///
+/// - returns: `true` if the two values are equal, `false` otherwise.
 public func ==(lhs: Operation, rhs: Operation) -> Bool {
   switch (lhs, rhs) {
   case let (.insert(lhsIndex), .insert(rhsIndex)):
@@ -62,12 +75,19 @@ enum Entry {
   case index(Int)
 }
 
-// Based on http://dl.acm.org/citation.cfm?id=359467.
-//
-// And other similar implementations at:
-// * https://github.com/Instagram/IGListKit
-// * https://github.com/andre-alves/PHDiff
-//
+/// Returns a diff, given an old and a new representation of a given collection (such as an `Array`).
+/// The return value is a list of `Operation` values, each which instructs how to transform the old
+/// collection into the new collection.
+///
+/// - parameter old: The old collection.
+/// - parameter new: The new collection.
+/// - returns: A list of `Operation` values, representing the diff.
+///
+/// Based on http://dl.acm.org/citation.cfm?id=359467.
+///
+/// And other similar implementations at:
+/// * https://github.com/Instagram/IGListKit
+/// * https://github.com/andre-alves/PHDiff
 public func diff<T: Collection>(_ old: T, _ new: T) -> [Operation] where T.Iterator.Element: Hashable, T.IndexDistance == Int, T.Index == Int {
   var table = [Int: SymbolEntry]()
   var oa = [Entry]()
@@ -174,6 +194,12 @@ public func diff<T: Collection>(_ old: T, _ new: T) -> [Operation] where T.Itera
   return steps
 }
 
+/// Similar to to `diff`, except that this returns the same set of operations but in an order that
+/// can be applied step-wise to transform the old array into the new one.
+///
+/// - parameter old: The old collection.
+/// - parameter new: The new collection.
+/// - returns: A list of `Operation` values, representing the diff.
 public func orderedDiff<T: Collection>(_ old: T, _ new: T) -> [Operation] where T.Iterator.Element: Hashable, T.IndexDistance == Int, T.Index == Int {
   let steps = diff(old, new)
 
