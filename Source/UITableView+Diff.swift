@@ -10,6 +10,12 @@ import Foundation
 import UIKit
 
 public extension UITableView {
+  /// Applies a batch update to the receiver, efficiently reporting changes between old and new.
+  ///
+  /// - parameter old:       The previous state of the table view.
+  /// - parameter new:       The current state of the table view.
+  /// - parameter section:   The section where these changes took place.
+  /// - parameter animation: The animation type.
   func applyDiff<T: Collection>(_ old: T, _ new: T, inSection section: Int, withAnimation animation: UITableViewRowAnimation) where T.Iterator.Element: Hashable, T.IndexDistance == Int, T.Index == Int {
     let update = ListUpdate(diff(old, new), section)
 
