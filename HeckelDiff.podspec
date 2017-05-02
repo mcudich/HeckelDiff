@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
   s.name             = "HeckelDiff"
-  s.version          = "0.2.1"
+  s.version          = "0.2.2"
   s.summary          = "Pure Swift implementation of Paul Heckel's \"A Technique for Isolating Differences Between Files\""
   s.description      = "Given two collections, provides a very efficient set of steps to transform one into the other. Adds support for UITableView and UICollectionView batched updates."
 
