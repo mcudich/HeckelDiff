@@ -8,7 +8,7 @@
 
 import Foundation
 
-struct ListUpdate {
+public struct ListUpdate {
   var deletions = [IndexPath]()
   var insertions = [IndexPath]()
   var updates = [IndexPath]()
