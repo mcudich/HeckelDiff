@@ -20,26 +20,15 @@ public enum Operation: Equatable {
   case delete(Int)
   case move(Int, Int)
   case update(Int)
-}
 
-/// Returns whether the two `Operation` values are equal.
-///
-/// - parameter lhs: The left-hand side value to compare.
-/// - parameter rhs: The right-hand side value to compare.
-///
-/// - returns: `true` if the two values are equal, `false` otherwise.
-public func ==(lhs: Operation, rhs: Operation) -> Bool {
-  switch (lhs, rhs) {
-  case let (.insert(lhsIndex), .insert(rhsIndex)):
-    return lhsIndex == rhsIndex
-  case let (.delete(lhsIndex), .delete(rhsIndex)):
-    return lhsIndex == rhsIndex
-  case let (.move(lhsFromIndex, lhsToIndex), .move(rhsFromIndex, rhsToIndex)):
-    return lhsFromIndex == rhsFromIndex && lhsToIndex == rhsToIndex
-  case let (.update(lhsIndex), .update(rhsIndex)):
-    return lhsIndex == rhsIndex
-  default:
-    return false
+  public static func ==(lhs: Operation, rhs: Operation) -> Bool {
+    switch (lhs, rhs) {
+    case let (.insert(li), .insert(ri)),
+         let (.delete(li), .delete(ri)),
+         let (.update(li), .update(ri)): return li == ri
+    case let (.move(li), .move(ri)): return li == ri
+    default: return false
+    }
   }
 }
 
