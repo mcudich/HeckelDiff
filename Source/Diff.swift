@@ -23,10 +23,10 @@ public enum Operation: Equatable {
 
   public static func ==(lhs: Operation, rhs: Operation) -> Bool {
     switch (lhs, rhs) {
-    case let (.insert(li), .insert(ri)),
-         let (.delete(li), .delete(ri)),
-         let (.update(li), .update(ri)): return li == ri
-    case let (.move(li), .move(ri)): return li == ri
+    case let (.insert(l), .insert(r)),
+         let (.delete(l), .delete(r)),
+         let (.update(l), .update(r)): return l == r
+    case let (.move(l), .move(r)): return l == r
     default: return false
     }
   }
