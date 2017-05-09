@@ -20,26 +20,15 @@ public enum Operation: Equatable {
   case delete(Int)
   case move(Int, Int)
   case update(Int)
-}
 
-/// Returns whether the two `Operation` values are equal.
-///
-/// - parameter lhs: The left-hand side value to compare.
-/// - parameter rhs: The right-hand side value to compare.
-///
-/// - returns: `true` if the two values are equal, `false` otherwise.
-public func ==(lhs: Operation, rhs: Operation) -> Bool {
-  switch (lhs, rhs) {
-  case let (.insert(lhsIndex), .insert(rhsIndex)):
-    return lhsIndex == rhsIndex
-  case let (.delete(lhsIndex), .delete(rhsIndex)):
-    return lhsIndex == rhsIndex
-  case let (.move(lhsFromIndex, lhsToIndex), .move(rhsFromIndex, rhsToIndex)):
-    return lhsFromIndex == rhsFromIndex && lhsToIndex == rhsToIndex
-  case let (.update(lhsIndex), .update(rhsIndex)):
-    return lhsIndex == rhsIndex
-  default:
-    return false
+  public static func ==(lhs: Operation, rhs: Operation) -> Bool {
+    switch (lhs, rhs) {
+    case let (.insert(l), .insert(r)),
+         let (.delete(l), .delete(r)),
+         let (.update(l), .update(r)): return l == r
+    case let (.move(l), .move(r)): return l == r
+    default: return false
+    }
   }
 }
 
@@ -121,8 +110,7 @@ public func diff<T: Collection>(_ old: T, _ new: T) -> [Operation] where T.Itera
   // In pass 3 we also "find" unique virtual lines immediately before the first and immediately
   // after the last lines of the files.
   for (index, item) in na.enumerated() {
-    if case .symbol(let entry) = item, entry.occursInBoth {
-      guard entry.olno.count > 0 else { continue }
+    if case let .symbol(entry) = item, entry.occursInBoth, !entry.olno.isEmpty {
 
       let oldIndex = entry.olno.removeFirst()
       na[index] = .index(oldIndex)
@@ -134,13 +122,14 @@ public func diff<T: Collection>(_ old: T, _ new: T) -> [Operation] where T.Itera
   // points to OA[j] and NA[i + 1] and OA[j + 1] contain identical symbol table entry pointers, then
   // OA[j + 1] is set to line i + 1 and NA[i + 1] is set to line j + 1.
   var i = 1
-  while (i < na.count - 1) {
-    if case .index(let j) = na[i], j + 1 < oa.count {
-      if case .symbol(let newEntry) = na[i + 1], case .symbol(let oldEntry) = oa[j + 1], newEntry === oldEntry {
+  while i < na.count - 1 {
+    if case let .index(j) = na[i], j + 1 < oa.count,
+        case let .symbol(newEntry) = na[i + 1],
+        case let .symbol(oldEntry) = oa[j + 1], newEntry === oldEntry {
         na[i + 1] = .index(j + 1)
         oa[j + 1] = .index(i + 1)
       }
-    }
+
     i += 1
   }
 
@@ -148,13 +137,14 @@ public func diff<T: Collection>(_ old: T, _ new: T) -> [Operation] where T.Itera
   // points to OA[j] and NA[i - 1] and OA[j - 1] contain identical symbol table pointers, then
   // NA[i - 1] is replaced by j - 1 and OA[j - 1] is replaced by i - 1.
   i = na.count - 1
-  while (i > 0) {
-    if case .index(let j) = na[i], j - 1 >= 0 {
-      if case .symbol(let newEntry) = na[i - 1], case .symbol(let oldEntry) = oa[j - 1], newEntry === oldEntry {
+  while i > 0 {
+    if case let .index(j) = na[i], j - 1 >= 0,
+        case let .symbol(newEntry) = na[i - 1],
+        case let .symbol(oldEntry) = oa[j - 1], newEntry === oldEntry {
         na[i - 1] = .index(j - 1)
         oa[j - 1] = .index(i - 1)
-      }
     }
+
     i -= 1
   }
 
@@ -164,7 +154,7 @@ public func diff<T: Collection>(_ old: T, _ new: T) -> [Operation] where T.Itera
   var runningOffset = 0
   for (index, item) in oa.enumerated() {
     deleteOffsets[index] = runningOffset
-    if case .symbol(_) = item {
+    if case .symbol = item {
       steps.append(.delete(index))
       runningOffset += 1
     }
@@ -174,10 +164,10 @@ public func diff<T: Collection>(_ old: T, _ new: T) -> [Operation] where T.Itera
 
   for (index, item) in na.enumerated() {
     switch item {
-    case .symbol(_):
+    case .symbol:
       steps.append(.insert(index))
       runningOffset += 1
-    case .index(let oldIndex):
+    case let .index(oldIndex):
       // The object has changed, so it should be updated.
       if old[oldIndex] != new[index] {
         steps.append(.update(index))
