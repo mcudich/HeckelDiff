@@ -6,6 +6,7 @@
 //  Copyright © 2016 Matias Cudich. All rights reserved.
 //
 
+#if os(iOS) || os(tvOS)
 import Foundation
 import UIKit
 
@@ -33,3 +34,4 @@ public extension UICollectionView {
     }, completion: completion)
   }
 }
+#endif
