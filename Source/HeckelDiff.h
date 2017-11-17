@@ -6,7 +6,7 @@
 //  Copyright © 2016 Matias Cudich. All rights reserved.
 //
 
-#import <UIKit/UIKit.h>
+#import <Foundation/Foundation.h>
 
 //! Project version number for HeckelDiff.
 FOUNDATION_EXPORT double HeckelDiffVersionNumber;
