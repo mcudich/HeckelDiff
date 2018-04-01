@@ -77,7 +77,7 @@ enum Entry {
 /// And other similar implementations at:
 /// * https://github.com/Instagram/IGListKit
 /// * https://github.com/andre-alves/PHDiff
-public func diff<T: Collection>(_ old: T, _ new: T) -> [Operation] where T.Iterator.Element: Hashable, T.IndexDistance == Int, T.Index == Int {
+public func diff<T: Collection>(_ old: T, _ new: T) -> [Operation] where T.Iterator.Element: Hashable, T.Index == Int {
   var table = [Int: SymbolEntry]()
   var oa = [Entry]()
   var na = [Entry]()
@@ -190,7 +190,7 @@ public func diff<T: Collection>(_ old: T, _ new: T) -> [Operation] where T.Itera
 /// - parameter old: The old collection.
 /// - parameter new: The new collection.
 /// - returns: A list of `Operation` values, representing the diff.
-public func orderedDiff<T: Collection>(_ old: T, _ new: T) -> [Operation] where T.Iterator.Element: Hashable, T.IndexDistance == Int, T.Index == Int {
+public func orderedDiff<T: Collection>(_ old: T, _ new: T) -> [Operation] where T.Iterator.Element: Hashable, T.Index == Int {
   let steps = diff(old, new)
 
   var insertions = [Operation]()
@@ -217,7 +217,7 @@ public func orderedDiff<T: Collection>(_ old: T, _ new: T) -> [Operation] where 
     }
   }
 
-  let deletions = possibleDeletions.flatMap { $0 }.reversed()
+  let deletions = possibleDeletions.compactMap { $0 }.reversed()
 
   return deletions + insertions + updates
 }

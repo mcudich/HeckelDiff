@@ -17,7 +17,7 @@ public extension UICollectionView {
   /// - parameter new:            The current state of the collection view.
   /// - parameter section:        The section where these changes took place.
   /// - parameter reloadUpdated:  Whether or not updated cells should be reloaded (default: true)
-  func applyDiff<T: Collection>(_ old: T, _ new: T, inSection section: Int, reloadUpdated: Bool = true, completion: ((Bool) -> Void)?) where T.Iterator.Element: Hashable, T.IndexDistance == Int, T.Index == Int {
+  func applyDiff<T: Collection>(_ old: T, _ new: T, inSection section: Int, reloadUpdated: Bool = true, completion: ((Bool) -> Void)?) where T.Iterator.Element: Hashable, T.Index == Int {
     let update = ListUpdate(diff(old, new), section)
 
     performBatchUpdates({
