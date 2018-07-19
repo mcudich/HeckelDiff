@@ -21,7 +21,7 @@ public extension UITableView {
   func applyDiff<T: Collection>(_ old: T, _ new: T, inSection section: Int, withAnimation animation: UITableViewRowAnimation, reloadUpdated: Bool = true) where T.Iterator.Element: Hashable, T.Index == Int {
     let update = ListUpdate(diff(old, new), section)
 
-    if update.collectionUpdates {
+    if update.isOrderChanged {
         beginUpdates()
 
         deleteRows(at: update.deletions, with: animation)
