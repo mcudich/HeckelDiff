@@ -21,14 +21,16 @@ public extension UITableView {
   func applyDiff<T: Collection>(_ old: T, _ new: T, inSection section: Int, withAnimation animation: UITableViewRowAnimation, reloadUpdated: Bool = true) where T.Iterator.Element: Hashable, T.Index == Int {
     let update = ListUpdate(diff(old, new), section)
 
-    beginUpdates()
+    if update.collectionUpdates {
+        beginUpdates()
 
-    deleteRows(at: update.deletions, with: animation)
-    insertRows(at: update.insertions, with: animation)
-    for move in update.moves {
-      moveRow(at: move.from, to: move.to)
+        deleteRows(at: update.deletions, with: animation)
+        insertRows(at: update.insertions, with: animation)
+        for move in update.moves {
+            moveRow(at: move.from, to: move.to)
+        }
+        endUpdates()
     }
-    endUpdates()
 
     // reloadItems is done separately as the update indexes returne by diff() are in respect to the
     // "after" state, but the collectionView.reloadItems() call wants the "before" indexPaths.

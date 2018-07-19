@@ -20,13 +20,15 @@ public extension UICollectionView {
   func applyDiff<T: Collection>(_ old: T, _ new: T, inSection section: Int, reloadUpdated: Bool = true, completion: ((Bool) -> Void)?) where T.Iterator.Element: Hashable, T.Index == Int {
     let update = ListUpdate(diff(old, new), section)
 
-    performBatchUpdates({
-      self.deleteItems(at: update.deletions)
-      self.insertItems(at: update.insertions)
-      for move in update.moves {
-        self.moveItem(at: move.from, to: move.to)
-      }
-    }, completion: reloadUpdated ? nil : completion)
+    if update.collectionUpdates {
+        performBatchUpdates({
+            self.deleteItems(at: update.deletions)
+            self.insertItems(at: update.insertions)
+            for move in update.moves {
+                self.moveItem(at: move.from, to: move.to)
+            }
+        }, completion: reloadUpdated ? nil : completion)
+    }
 
     if reloadUpdated {
       // reloadItems is done separately as the update indexes returne by diff() are in respect to the
