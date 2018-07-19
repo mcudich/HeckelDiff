@@ -13,7 +13,7 @@ public struct ListUpdate {
   public var insertions = [IndexPath]()
   public var updates = [IndexPath]()
   public var moves = [(from: IndexPath, to: IndexPath)]()
-  public var isOrderChanged Bool {
+  public var isOrderChanged: Bool {
     return !(deletions.isEmpty && insertions.isEmpty && moves.isEmpty)
   }
 
