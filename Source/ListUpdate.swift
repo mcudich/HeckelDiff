@@ -7,6 +7,11 @@
 //
 
 import Foundation
+#if canImport(UIKit)
+import UIKit
+#elseif canImport(AppKit)
+import AppKit
+#endif
 
 public struct ListUpdate {
   public var deletions = [IndexPath]()
@@ -18,13 +23,13 @@ public struct ListUpdate {
     for step in result {
       switch step {
       case .delete(let index):
-        deletions.append(IndexPath(row: index, section: section))
+        deletions.append(IndexPath(item: index, section: section))
       case .insert(let index):
-        insertions.append(IndexPath(row: index, section: section))
+        insertions.append(IndexPath(item: index, section: section))
       case .update(let index):
-        updates.append(IndexPath(row: index, section: section))
+        updates.append(IndexPath(item: index, section: section))
       case let .move(fromIndex, toIndex):
-        moves.append((from: IndexPath(row: fromIndex, section: section), to: IndexPath(row: toIndex, section: section)))
+        moves.append((from: IndexPath(item: fromIndex, section: section), to: IndexPath(item: toIndex, section: section)))
       }
     }
   }
