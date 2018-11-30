@@ -18,7 +18,7 @@ public extension UITableView {
   /// - parameter section:          The section where these changes took place.
   /// - parameter animation:        The animation type.
   /// - parameter reloadUpdated:    Whether or not updated cells should be reloaded (default: true)
-  func applyDiff<T: Collection>(_ old: T, _ new: T, inSection section: Int, withAnimation animation: UITableViewRowAnimation, reloadUpdated: Bool = true) where T.Iterator.Element: Hashable, T.Index == Int {
+  func applyDiff<T: Collection>(_ old: T, _ new: T, inSection section: Int, withAnimation animation: UITableView.RowAnimation, reloadUpdated: Bool = true) where T.Iterator.Element: Hashable, T.Index == Int {
     let update = ListUpdate(diff(old, new), section)
 
     beginUpdates()
