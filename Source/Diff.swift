@@ -26,7 +26,7 @@ public enum Operation: Equatable {
     case let (.insert(l), .insert(r)),
          let (.delete(l), .delete(r)),
          let (.update(l), .update(r)): return l == r
-    case let (.move(l), .move(r)): return l == r
+    case let (.move(l1,l2), .move(r1,r2)): return l1 == r1 && l2 == r2
     default: return false
     }
   }
